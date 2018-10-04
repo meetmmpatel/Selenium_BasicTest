@@ -4,6 +4,8 @@ import static org.testng.Assert.assertEquals;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -13,7 +15,7 @@ import com.selenium.basicTestOne.partOne.Driver;
 public class HomePageTest {
 
 	Driver dr = new Driver();
-	WebDriver chrome = dr.getChrom();
+	// WebDriver chrome = dr.getChrom();
 	WebDriver firefox = dr.getFirefox();
 	private final String demoSite = "Https://Opensource-Demo.orangehrmlive.com/";
 
@@ -38,17 +40,25 @@ public class HomePageTest {
 		firefox.findElement(By.id("btnLogin")).click();
 
 	}
-	
+
 	@Test
 	public void secoundPage() throws InterruptedException {
-		firefox.findElement(By.cssSelector("#dashboard-quick-launch-panel-menu_holder > table > tbody > tr > td:nth-child(1) > div > a"));
-		Thread.sleep(7000);
+		Thread.sleep(6000);
+		firefox.findElement(
+				By.xpath("//*[@id=\"dashboard-quick-launch-panel-menu_holder\"]/table/tbody/tr/td[1]/div/a/img"))
+				.click();
+		WebElement element = firefox.findElement(By.id("assignleave_txtLeaveType"));
+		Select se = new Select(element);
+		se.selectByIndex(3);
+		
+
 	}
-	
+
 	@AfterSuite
-   public void closeTheTest() {
+	public void closeTheTest() throws InterruptedException {
+		Thread.sleep(6000);
 		firefox.close();
-	   
-   }
+
+	}
 
 }
